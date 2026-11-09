@@ -1,3 +1,4 @@
+/* Itch.io-Inspired Marketplace Hero */
 .marketplace-hero {
     background: linear-gradient(135deg, var(--card-bg), var(--bg-secondary));
     border: 1px solid var(--border-color);
@@ -189,10 +190,73 @@
     line-height: 1.5;
 }
 
+/* Community Comments GUI Container (Itch.io Styled) */
 .comments-section-container {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 35px;
     margin-top: 50px;
+}
+
+.comments-gui-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+}
+
+.comments-title-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.comments-title-area i {
+    font-size: 1.5rem;
+    color: var(--accent-main);
+}
+
+.comments-title-area h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.comments-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.comments-loading-state {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    padding: 30px 0;
+    font-size: 0.95rem;
+}
+
+.comments-loading-state i {
+    color: var(--accent-main);
+    font-size: 1.2rem;
+}
+
+.comments-error-state {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+    padding: 16px 20px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    margin-top: 16px;
+}
+
+.comments-error-state.hidden {
+    display: none;
 }

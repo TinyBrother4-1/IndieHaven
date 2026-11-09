@@ -3,10 +3,10 @@
     "id": "softbodyengine",
     "title": "Soft Body Engine",
     "genre": "Sandbox",
-    "desc": "A soft body engine that simulates softbodies with rigid bodies (note this is made with AI so bugs can happen)",
+    "desc": "A soft body physics sandbox.",
     "author": "TinyBrother4",
     "added": "2026-11-08",
-    "download": "Games/Soft.7z",
+    "download": "https://drive.google.com/file/d/1Rv1czN_K1hVVzxzOCPtRPh7dft3uEwqo/view?usp=drive_link",
     "comments": true
   },
   
@@ -17,7 +17,7 @@
     "desc": "A physics engine that i made that you can build in (note this is made with AI so bugs can happen)",
     "author": "TinyBrother4",
     "added": "2026-11-09",
-    "download": "Games/block-lab.exe",
+    "download": "https://drive.google.com/file/d/1pfcjHAotHrIRtg0wPgDHqj3pw9q5OQod/view?usp=drive_link",
     "comments": true
   }
 ]

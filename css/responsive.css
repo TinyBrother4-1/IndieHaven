@@ -1,14 +1,23 @@
-@media (max-width: 1024px) {
-    .app-sidebar {
-        transform: translateX(-100%);
-    }
-    .app-sidebar.active {
-        transform: translateX(0);
-    }
-    .app-main-wrapper {
-        margin-left: 0;
+@media (max-width: 768px) {
+    .nav-links, .nav-search-wrapper {
+        display: none;
     }
     .mobile-toggle {
         display: block;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    .marketplace-hero {
+        padding: 35px 20px;
+    }
+    .marketplace-hero h1 {
+        font-size: 2rem;
     }
 }

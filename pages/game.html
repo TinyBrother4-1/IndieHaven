@@ -3,45 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Details — Tiny Arcade</title>
+    <title>Game Details — IndieHaven</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div id="app-shell">
-        <aside id="appSidebar" class="app-sidebar">
-            <div class="sidebar-header">
-                <i class="fa-solid fa-gamepad sidebar-logo-icon"></i>
-                <span class="sidebar-title">Tiny Arcade</span>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-logo">
+                    <i class="fa-solid fa-gamepad logo-icon"></i>
+                    <span>IndieHaven</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link">Discover</a>
+                    <a href="browse.html" class="nav-link">Browse Games</a>
+                </div>
             </div>
-            <div class="sidebar-nav">
-                <a href="../index.html" class="nav-item"><i class="fa-solid fa-compass"></i> Discover</a>
-                <a href="browse.html" class="nav-item active"><i class="fa-solid fa-layer-group"></i> Browse Library</a>
-                <a href="favorites.html" class="nav-item"><i class="fa-solid fa-heart"></i> Favorites</a>
+            <div class="nav-right">
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn">
+                    <i class="fa-brands fa-discord"></i> Request a Game
+                </a>
             </div>
-        </aside>
-
-        <div class="app-main-wrapper">
-            <header class="app-topbar">
-                <button id="mobileMenuToggle" class="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
-                <a href="browse.html" class="btn secondary-btn">&larr; Back to Library</a>
-            </header>
-
-            <main id="gameDetailMain">
-                <!-- Dynamically loaded -->
-            </main>
-
-            <footer class="app-footer">
-                <p>&copy; 2026 Tiny Arcade Platform.</p>
-            </footer>
         </div>
-    </div>
+    </nav>
+
+    <main id="gameDetailMain" style="max-width: 1000px;">
+        <!-- Dynamically loaded -->
+    </main>
+
+    <footer id="siteFooter" style="margin-top: 60px;">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3><i class="fa-solid fa-gamepad"></i> IndieHaven</h3>
+                <p>An independent digital playground for creators, developers, and players.</p>
+            </div>
+            <div class="footer-links-group">
+                <h4>Marketplace</h4>
+                <a href="browse.html">Browse Games</a>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Request a Game</a>
+            </div>
+            <div class="footer-links-group">
+                <h4>Community</h4>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Discord Server</a>
+                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer">YouTube Channel (@TinyBrother4)</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IndieHaven Marketplace.</p>
+        </div>
+    </footer>
 
     <script src="../js/storage.js"></script>
     <script src="../js/games.js"></script>
     <script src="../js/search.js"></script>
-    <script src="../js/navigation.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -54,10 +70,10 @@
             if (!game) {
                 main.innerHTML = `
                     <div class="empty-state-card" style="margin-top: 40px;">
-                        <i class="fa-solid fa-ghost" style="font-size: 3rem; color: var(--accent-primary);"></i>
-                        <h3>Module Not Found</h3>
-                        <p>The requested game ID does not exist in <code>games.json</code>.</p>
-                        <a href="browse.html" class="btn primary-btn" style="margin-top: 10px;">Return to Library</a>
+                        <i class="fa-solid fa-ghost" style="font-size: 3.5rem; color: var(--accent-main);"></i>
+                        <h3>Game Package Not Found</h3>
+                        <p>The requested game ID could not be resolved in <code>games.json</code>.</p>
+                        <a href="browse.html" class="btn primary-btn" style="margin-top: 10px;">Return to Browse</a>
                     </div>
                 `;
                 return;
@@ -66,37 +82,37 @@
             const downloadPath = `../${game.download}`;
 
             main.innerHTML = `
-                <div style="background: var(--bg-surface); border: 1px solid var(--border-color); padding: 40px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 45px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
                     <div>
-                        <span class="genre-tag">${game.genre}</span>
-                        <h1 style="font-size: 2.25rem; font-weight: 800; color: #fff; margin: 12px 0;">${game.title}</h1>
-                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Created by <strong>${game.author}</strong> &bull; Registered: ${game.added}</p>
-                        <p style="line-height: 1.6; color: var(--text-secondary); margin-bottom: 30px;">${game.desc}</p>
+                        <span class="genre-pill">${game.genre}</span>
+                        <h1 style="font-size: 2.5rem; font-weight: 800; color: #fff; margin: 12px 0;">${game.title}</h1>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Created by <strong>${game.author}</strong> &bull; Added: ${game.added}</p>
+                        <p style="line-height: 1.6; color: var(--text-secondary); margin-bottom: 30px; font-size: 1.05rem;">${game.desc}</p>
                         
                         <div style="display: flex; gap: 12px;">
-                            <a href="${downloadPath}" download class="btn primary-btn"><i class="fa-solid fa-download"></i> Download Archive (.7z)</a>
+                            <a href="${downloadPath}" download class="btn primary-btn" style="padding: 12px 24px; font-size: 1rem;"><i class="fa-solid fa-download"></i> Download Archive (.7z)</a>
                         </div>
                     </div>
-                    <div style="background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;">
-                        <i class="fa-solid fa-file-zipper" style="font-size: 4rem; color: var(--accent-primary); margin-bottom: 16px;"></i>
-                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px;">Repository Archive</h3>
+                    <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;">
+                        <i class="fa-solid fa-file-zipper" style="font-size: 4.5rem; color: var(--accent-main); margin-bottom: 16px;"></i>
+                        <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Repository Package</h3>
                         <p style="color: var(--text-secondary); font-size: 0.8rem; word-break: break-all;">${game.download}</p>
                     </div>
                 </div>
 
                 <!-- Utterances Comments Section -->
                 <div class="comments-section-container">
-                    <div class="comments-header">
-                        <i class="fa-solid fa-comments"></i>
-                        <h2>Community Discussion</h2>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                        <i class="fa-solid fa-comments" style="font-size: 1.5rem; color: var(--accent-main);"></i>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Community Discussion</h2>
                     </div>
-                    <p class="comments-desc">Discussions are powered by GitHub Issues. Sign in with GitHub to post comments or feedback for <strong>${game.title}</strong>.</p>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">Discussions are powered by GitHub Issues. Sign in with GitHub below to share feedback or chat about <strong>${game.title}</strong>.</p>
                     
                     <div id="utterances-container"></div>
                 </div>
             `;
 
-            // Dynamically inject Utterances script using game ID as issue-term
+            // Inject Utterances script using game ID as unique issue identifier
             const utterancesScript = document.createElement('script');
             utterancesScript.src = 'https://utteranc.es/client.js';
             utterancesScript.async = true;
@@ -104,11 +120,8 @@
             
             // CONFIGURE YOUR GITHUB REPOSITORY HERE
             utterancesScript.setAttribute('repo', 'YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME'); 
-            
-            // Maps each game to its own unique GitHub Issue using its unique ID
             utterancesScript.setAttribute('issue-term', game.id);
-            
-            utterancesScript.setAttribute('label', 'game-comment');
+            utterancesScript.setAttribute('label', 'game-discussion');
             utterancesScript.setAttribute('theme', 'github-dark');
 
             const container = document.getElementById('utterances-container');

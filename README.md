@@ -1,6 +1,6 @@
-# 🎮 Tiny Arcade
+# 🎮 IndieHaven
 
-Welcome to **Tiny Arcade**, a community-driven library for discovering and playing small indie games!
+Welcome to **IndieHaven**, a community-driven library for discovering and playing small indie games!
 
 Visitors can suggest games through our Discord server. Approved games are manually added to this GitHub repository and automatically appear on the website.
 
@@ -38,10 +38,10 @@ Join our Discord server and submit a suggestion in the game request forum.
 
 ## ❤️ Support the Creator
 
-Enjoying Tiny Arcade? Consider subscribing to my YouTube channel!
+Enjoying IndieHaven? Consider subscribing to my YouTube channel!
 
 [Subscribe to TinyBrother4](https://www.youtube.com/@TinyBrother4)
 
 ---
 
-*Tiny Arcade — Discover small games, support indie developers, and grow the community.*
+*IndieHaven — Discover small games, support indie developers, and grow the community.*

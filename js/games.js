@@ -23,11 +23,11 @@ const GamesModule = {
             recentGrid.innerHTML = `
                 <div class="empty-state-card">
                     <i class="fa-solid fa-box-open"></i>
-                    <h3>Library Sector Empty</h3>
-                    <p>No game packages are currently registered in <code>games.json</code>. Request games on Discord or add archives to GitHub.</p>
-                    <div style="display: flex; gap: 12px; margin-top: 10px;">
-                        <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn"><i class="fa-brands fa-discord"></i> Request a Game</a>
-                    </div>
+                    <h3>No Games in the Marketplace Yet</h3>
+                    <p>New indie releases added to your root-level <code>games.json</code> will appear here automatically. Want to see a game added?</p>
+                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn" style="margin-top: 8px;">
+                        <i class="fa-brands fa-discord"></i> Request a Game on Discord
+                    </a>
                 </div>
             `;
             return;
@@ -43,16 +43,16 @@ const GamesModule = {
         
         return `
             <div class="game-card" onclick="window.location.href='${detailHref}'">
-                <div class="game-card-preview">
-                    <i class="fa-solid fa-file-zipper"></i>
+                <div class="game-card-thumb">
+                    <i class="fa-solid fa-gamepad"></i>
                 </div>
                 <div class="game-card-body">
                     <h3 class="game-card-title">${game.title}</h3>
-                    <p class="game-card-author">${game.author}</p>
+                    <p class="game-card-author">By ${game.author}</p>
                     <p class="game-card-desc">${game.desc}</p>
                     <div class="game-card-footer">
-                        <span class="genre-tag">${game.genre}</span>
-                        <span style="font-weight: 600; color: var(--accent-success); font-size: 0.8rem;"><i class="fa-solid fa-download"></i> Ready</span>
+                        <span class="genre-pill">${game.genre}</span>
+                        <span style="font-weight: 600; color: var(--success); font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Archive</span>
                     </div>
                 </div>
             </div>

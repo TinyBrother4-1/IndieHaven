@@ -3,77 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiny Arcade — GitHub & Steam Inspired Indie Platform</title>
+    <title>IndieHaven — Independent Game Marketplace</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="app-shell">
-        <!-- Sidebar Navigation -->
-        <aside id="appSidebar" class="app-sidebar">
-            <div class="sidebar-header">
-                <i class="fa-solid fa-gamepad sidebar-logo-icon"></i>
-                <span class="sidebar-title">Tiny Arcade</span>
-            </div>
-            <div class="sidebar-nav">
-                <a href="index.html" class="nav-item active"><i class="fa-solid fa-compass"></i> Discover</a>
-                <a href="pages/browse.html" class="nav-item"><i class="fa-solid fa-layer-group"></i> Browse Library</a>
-                <a href="pages/favorites.html" class="nav-item"><i class="fa-solid fa-heart"></i> Favorites</a>
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="nav-item"><i class="fa-brands fa-discord"></i> Request a Game</a>
-            </div>
-            <div class="sidebar-footer">
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn" style="width: 100%;"><i class="fa-brands fa-discord"></i> Join Discord</a>
-                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer" class="btn youtube-btn" style="width: 100%;"><i class="fa-brands fa-youtube"></i> TinyBrother4</a>
-            </div>
-        </aside>
-
-        <!-- Main Wrapper -->
-        <div class="app-main-wrapper">
-            <header class="app-topbar">
-                <button id="mobileMenuToggle" class="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
-                <div class="topbar-search">
-                    <i class="fa-solid fa-search"></i>
-                    <input type="text" id="globalSearchInput" placeholder="Search game catalog...">
+    <!-- Top Navigation Bar (Consistently Aligned Header) -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="nav-logo">
+                    <i class="fa-solid fa-gamepad logo-icon"></i>
+                    <span>IndieHaven</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Discover</a>
+                    <a href="pages/browse.html" class="nav-link">Browse Games</a>
+                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="nav-link">Request a Game</a>
                 </div>
-                <div class="topbar-actions">
-                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn secondary-btn discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
+            </div>
+            <div class="nav-right">
+                <div class="nav-search-wrapper">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="text" id="globalSearchInput" placeholder="Search games, authors..." autocomplete="off">
                 </div>
-            </header>
-
-            <main>
-                <section class="hero-banner">
-                    <span class="hero-tag"><i class="fa-solid fa-terminal"></i> GitHub-Driven Repository</span>
-                    <h1>Independent Game Discovery Platform</h1>
-                    <p>Explore high-performance sandbox simulations and custom builds managed directly through GitHub repositories and community requests.</p>
-                    <div style="display: flex; gap: 12px; margin-top: 8px;">
-                        <a href="pages/browse.html" class="btn primary-btn"><i class="fa-solid fa-layer-group"></i> Browse Library</a>
-                        <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn secondary-btn discord-btn"><i class="fa-brands fa-discord"></i> Request on Discord</a>
-                    </div>
-                </section>
-
-                <section style="margin-bottom: 40px;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
-                        <div>
-                            <h2 style="font-size: 1.35rem; font-weight: 700; color: #fff;">Catalog Packages</h2>
-                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Registered game archives ready for local deployment</p>
-                        </div>
-                        <a href="pages/browse.html" style="font-size: 0.9rem; font-weight: 600;">View All &rarr;</a>
-                    </div>
-                    <div id="homeRecentGrid" class="game-grid"></div>
-                </section>
-            </main>
-
-            <footer class="app-footer">
-                <p>&copy; 2026 Tiny Arcade Platform. Built with GitHub Pages compatibility.</p>
-                <div class="footer-links">
-                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Discord</a>
-                    <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer">YouTube</a>
-                </div>
-            </footer>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn">
+                    <i class="fa-brands fa-discord"></i> Request a Game
+                </a>
+                <button id="mobileMenuToggle" class="mobile-toggle" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+        <section class="marketplace-hero">
+            <span class="hero-tag"><i class="fa-solid fa-sparkles"></i> Open Indie Marketplace</span>
+            <h1>Discover Extraordinary Indie Games</h1>
+            <p>Explore unique atmospheric experiments, physics sandboxes, and developer tools. Browse our curated library or suggest missing titles through our community Discord.</p>
+            <div style="display: flex; justify-content: center; gap: 14px;">
+                <a href="pages/browse.html" class="btn primary-btn"><i class="fa-solid fa-compass"></i> Browse All Games</a>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn">
+                    <i class="fa-brands fa-discord"></i> Request a Game
+                </a>
+            </div>
+        </section>
+
+        <section class="home-section">
+            <div class="section-header">
+                <div>
+                    <h2>Recently Added Releases</h2>
+                    <p>Fresh independent packages loaded into the catalog</p>
+                </div>
+                <a href="pages/browse.html" class="view-all-link">View All Catalog &rarr;</a>
+            </div>
+            <div id="homeRecentGrid" class="game-grid"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="siteFooter">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3><i class="fa-solid fa-gamepad"></i> IndieHaven</h3>
+                <p>An independent digital playground for creators, developers, and players to discover and share extraordinary indie games.</p>
+            </div>
+            <div class="footer-links-group">
+                <h4>Marketplace</h4>
+                <a href="pages/browse.html">Browse Games</a>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Request a Game</a>
+            </div>
+            <div class="footer-links-group">
+                <h4>Community</h4>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Discord Server</a>
+                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer">YouTube Channel (@TinyBrother4)</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IndieHaven Marketplace. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/storage.js"></script>
     <script src="js/games.js"></script>

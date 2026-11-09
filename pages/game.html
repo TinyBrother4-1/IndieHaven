@@ -79,7 +79,7 @@
                 return;
             }
 
-            const downloadPath = `../${game.download}`;
+            const downloadPath = GamesModule.getAssetPath(game.download);
 
             main.innerHTML = `
                 <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 45px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
@@ -104,10 +104,8 @@
                 <div id="commentsWrapper"></div>
             `;
 
-            // Check if comments are explicitly set to true (default false otherwise)
-            const commentsEnabled = game.comments === true;
-
-            if (commentsEnabled) {
+            // Check if comments are explicitly set to true
+            if (game.comments === true) {
                 const commentsWrapper = document.getElementById('commentsWrapper');
                 commentsWrapper.innerHTML = `
                     <div class="comments-section-container">
@@ -121,16 +119,13 @@
                             </p>
                         </div>
                         
-                        <!-- Loading State -->
                         <div id="comments-loading" class="comments-loading-state">
                             <i class="fa-solid fa-spinner fa-spin"></i>
                             <span>Loading community discussion...</span>
                         </div>
 
-                        <!-- Utterances Target Container -->
                         <div id="utterances-container"></div>
 
-                        <!-- Error State Fallback -->
                         <div id="comments-error" class="comments-error-state hidden">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                             <span>Unable to load community comments. Please check your GitHub repository connection or ad blocker settings.</span>
@@ -138,14 +133,13 @@
                     </div>
                 `;
 
-                // Inject official Utterances script with unique issue-term mapping based on game id
                 const utterancesScript = document.createElement('script');
                 utterancesScript.src = 'https://utteranc.es/client.js';
                 utterancesScript.async = true;
                 utterancesScript.crossOrigin = 'anonymous';
                 
                 utterancesScript.setAttribute('repo', 'TinyBrother4-1/IndieHaven'); 
-                utterancesScript.setAttribute('issue-term', `game-${game.id}`); // Unique issue-term per game ID
+                utterancesScript.setAttribute('issue-term', `game-${game.id}`);
                 utterancesScript.setAttribute('label', 'game-discussion');
                 utterancesScript.setAttribute('theme', 'github-dark');
 
@@ -156,9 +150,7 @@
                 if (container) {
                     container.appendChild(utterancesScript);
 
-                    // Handle loading state completion or timeout/error
                     utterancesScript.onload = () => {
-                        // Utterances injects an iframe when loaded successfully
                         const checkIframe = setInterval(() => {
                             const iframe = container.querySelector('iframe');
                             if (iframe) {
@@ -167,7 +159,6 @@
                             }
                         }, 250);
 
-                        // Fallback timer in case iframe takes too long
                         setTimeout(() => {
                             if (loadingState && loadingState.style.display !== 'none') {
                                 loadingState.style.display = 'none';

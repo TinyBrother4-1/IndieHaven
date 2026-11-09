@@ -100,33 +100,42 @@
                     </div>
                 </div>
 
-                <!-- Utterances Comments Section -->
-                <div class="comments-section-container">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                        <i class="fa-solid fa-comments" style="font-size: 1.5rem; color: var(--accent-main);"></i>
-                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Community Discussion</h2>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">Discussions are powered by GitHub Issues. Sign in with GitHub below to share feedback or chat about <strong>${game.title}</strong>.</p>
-                    
-                    <div id="utterances-container"></div>
-                </div>
+                <!-- Conditional Utterances Comments Section -->
+                <div id="commentsWrapper"></div>
             `;
 
-            // Inject Utterances script using game ID as unique issue identifier
-            const utterancesScript = document.createElement('script');
-            utterancesScript.src = 'https://utteranc.es/client.js';
-            utterancesScript.async = true;
-            utterancesScript.crossOrigin = 'anonymous';
-            
-            // CONFIGURE YOUR GITHUB REPOSITORY HERE
-            utterancesScript.setAttribute('repo', 'YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME'); 
-            utterancesScript.setAttribute('issue-term', game.id);
-            utterancesScript.setAttribute('label', 'game-discussion');
-            utterancesScript.setAttribute('theme', 'github-dark');
+            // Check if comments are explicitly set to true (default false otherwise)
+            const commentsEnabled = game.comments === true;
 
-            const container = document.getElementById('utterances-container');
-            if (container) {
-                container.appendChild(utterancesScript);
+            if (commentsEnabled) {
+                const commentsWrapper = document.getElementById('commentsWrapper');
+                commentsWrapper.innerHTML = `
+                    <div class="comments-section-container">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <i class="fa-solid fa-comments" style="font-size: 1.5rem; color: var(--accent-main);"></i>
+                            <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Community Discussion</h2>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">Discussions are powered by GitHub Issues. Sign in with GitHub below to share feedback or chat about <strong>${game.title}</strong>.</p>
+                        
+                        <div id="utterances-container"></div>
+                    </div>
+                `;
+
+                // Inject official Utterances script with unique issue-term mapping based on game id
+                const utterancesScript = document.createElement('script');
+                utterancesScript.src = 'https://utteranc.es/client.js';
+                utterancesScript.async = true;
+                utterancesScript.crossOrigin = 'anonymous';
+                
+                utterancesScript.setAttribute('repo', 'TinyBrother4-1/IndieHaven'); 
+                utterancesScript.setAttribute('issue-term', `game-${game.id}`); // Unique issue-term per game ID
+                utterancesScript.setAttribute('label', 'game-discussion');
+                utterancesScript.setAttribute('theme', 'github-dark');
+
+                const container = document.getElementById('utterances-container');
+                if (container) {
+                    container.appendChild(utterancesScript);
+                }
             }
         });
     </script>

@@ -16,29 +16,25 @@ const GamesModule = {
     async renderHomeGrids() {
         const games = await this.fetchCatalog();
         const recentGrid = document.getElementById('homeRecentGrid');
-        const trendingGrid = document.getElementById('homeTrendingGrid');
 
         if (!recentGrid) return;
 
         if (games.length === 0) {
-            const emptyHTML = `
+            recentGrid.innerHTML = `
                 <div class="empty-state-card">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <h3>No games in the library yet</h3>
-                    <p>Add entries to your root-level <code>games.json</code> file to display games here automatically.</p>
-                    <a href="pages/request.html" class="btn primary-btn discord-btn"><i class="fa-brands fa-discord"></i> Request a Game on Discord</a>
+                    <i class="fa-solid fa-box-open"></i>
+                    <h3>Library Sector Empty</h3>
+                    <p>No game packages are currently registered in <code>games.json</code>. Request games on Discord or add archives to GitHub.</p>
+                    <div style="display: flex; gap: 12px; margin-top: 10px;">
+                        <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn"><i class="fa-brands fa-discord"></i> Request a Game</a>
+                    </div>
                 </div>
             `;
-            recentGrid.innerHTML = emptyHTML;
-            if (trendingGrid) trendingGrid.innerHTML = emptyHTML;
             return;
         }
 
         const sorted = [...games].sort((a, b) => new Date(b.added || 0) - new Date(a.added || 0));
-        recentGrid.innerHTML = sorted.slice(0, 4).map(g => this.createCardHTML(g)).join('');
-        if (trendingGrid) {
-            trendingGrid.innerHTML = sorted.slice(0, 4).map(g => this.createCardHTML(g)).join('');
-        }
+        recentGrid.innerHTML = sorted.map(g => this.createCardHTML(g)).join('');
     },
 
     createCardHTML(game) {
@@ -47,16 +43,16 @@ const GamesModule = {
         
         return `
             <div class="game-card" onclick="window.location.href='${detailHref}'">
-                <div class="game-card-img-wrapper" style="display: flex; align-items: center; justify-content: center; background: var(--bg-secondary); height: 160px;">
-                    <i class="fa-solid fa-file-zipper" style="font-size: 3rem; color: var(--accent-main);"></i>
+                <div class="game-card-preview">
+                    <i class="fa-solid fa-file-zipper"></i>
                 </div>
                 <div class="game-card-body">
                     <h3 class="game-card-title">${game.title}</h3>
-                    <p class="game-card-dev">${game.author}</p>
+                    <p class="game-card-author">${game.author}</p>
                     <p class="game-card-desc">${game.desc}</p>
                     <div class="game-card-footer">
-                        <span style="font-size: 0.75rem; background: var(--bg-secondary); padding: 3px 8px; border-radius: 4px;">${game.genre}</span>
-                        <span style="font-weight: 700; color: var(--success); font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Archive</span>
+                        <span class="genre-tag">${game.genre}</span>
+                        <span style="font-weight: 600; color: var(--accent-success); font-size: 0.8rem;"><i class="fa-solid fa-download"></i> Ready</span>
                     </div>
                 </div>
             </div>

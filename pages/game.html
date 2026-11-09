@@ -79,7 +79,7 @@
                 return;
             }
 
-            const downloadPath = GamesModule.getAssetPath(game.download);
+            const downloadPath = `../${game.download}`;
 
             main.innerHTML = `
                 <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 45px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
@@ -100,76 +100,41 @@
                     </div>
                 </div>
 
-                <!-- Conditional Community Comments GUI Container -->
+                <!-- Conditional Utterances Comments Section -->
                 <div id="commentsWrapper"></div>
             `;
 
-            // Check if comments are explicitly set to true
-            if (game.comments === true) {
+            // Check if comments are explicitly set to true (default false otherwise)
+            const commentsEnabled = game.comments === true;
+
+            if (commentsEnabled) {
                 const commentsWrapper = document.getElementById('commentsWrapper');
                 commentsWrapper.innerHTML = `
                     <div class="comments-section-container">
-                        <div class="comments-gui-header">
-                            <div class="comments-title-area">
-                                <i class="fa-solid fa-comments"></i>
-                                <h2>Community Comments</h2>
-                            </div>
-                            <p class="comments-subtitle">
-                                Join the discussion and share your feedback for <strong>${game.title}</strong>. Powered by GitHub Issues.
-                            </p>
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <i class="fa-solid fa-comments" style="font-size: 1.5rem; color: var(--accent-main);"></i>
+                            <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Community Discussion</h2>
                         </div>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">Discussions are powered by GitHub Issues. Sign in with GitHub below to share feedback or chat about <strong>${game.title}</strong>.</p>
                         
-                        <div id="comments-loading" class="comments-loading-state">
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-                            <span>Loading community discussion...</span>
-                        </div>
-
                         <div id="utterances-container"></div>
-
-                        <div id="comments-error" class="comments-error-state hidden">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span>Unable to load community comments. Please check your GitHub repository connection or ad blocker settings.</span>
-                        </div>
                     </div>
                 `;
 
+                // Inject official Utterances script with unique issue-term mapping based on game id
                 const utterancesScript = document.createElement('script');
                 utterancesScript.src = 'https://utteranc.es/client.js';
                 utterancesScript.async = true;
                 utterancesScript.crossOrigin = 'anonymous';
                 
                 utterancesScript.setAttribute('repo', 'TinyBrother4-1/IndieHaven'); 
-                utterancesScript.setAttribute('issue-term', `game-${game.id}`);
+                utterancesScript.setAttribute('issue-term', `game-${game.id}`); // Unique issue-term per game ID
                 utterancesScript.setAttribute('label', 'game-discussion');
                 utterancesScript.setAttribute('theme', 'github-dark');
 
                 const container = document.getElementById('utterances-container');
-                const loadingState = document.getElementById('comments-loading');
-                const errorState = document.getElementById('comments-error');
-
                 if (container) {
                     container.appendChild(utterancesScript);
-
-                    utterancesScript.onload = () => {
-                        const checkIframe = setInterval(() => {
-                            const iframe = container.querySelector('iframe');
-                            if (iframe) {
-                                clearInterval(checkIframe);
-                                if (loadingState) loadingState.style.display = 'none';
-                            }
-                        }, 250);
-
-                        setTimeout(() => {
-                            if (loadingState && loadingState.style.display !== 'none') {
-                                loadingState.style.display = 'none';
-                            }
-                        }, 6000);
-                    };
-
-                    utterancesScript.onerror = () => {
-                        if (loadingState) loadingState.style.display = 'none';
-                        if (errorState) errorState.classList.remove('hidden');
-                    };
                 }
             }
         });

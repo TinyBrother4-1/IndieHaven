@@ -8,5 +8,15 @@
     "added": "2026-11-8",
     "download": "Games/Soft.7z",
     "comments": true
+  },
+  {
+    "id": "physicsengine",
+    "title": "physics engine",
+    "genre": "Sandbox",
+    "desc": "A physics engine that i made that you can build in (note this is made with AI so bugs can happen)",
+    "author": "TinyBrother4",
+    "added": "2026-11-9",
+    "download": "Games/block-lab.exe",
+    "comments": true
   }
 ]

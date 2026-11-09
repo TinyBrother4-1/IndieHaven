@@ -3,28 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites — IndieHaven</title>
+    <title>Favorites — Tiny Arcade</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <main style="padding-top: 40px;">
-        <h2>Your Favorite Games</h2>
-        <div id="favoritesGrid" class="game-grid" style="margin-top: 20px;">
-            <p style="color: var(--text-secondary);">No favorite games saved yet.</p>
+    <div id="app-shell">
+        <aside id="appSidebar" class="app-sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-gamepad sidebar-logo-icon"></i>
+                <span class="sidebar-title">Tiny Arcade</span>
+            </div>
+            <div class="sidebar-nav">
+                <a href="../index.html" class="nav-item"><i class="fa-solid fa-compass"></i> Discover</a>
+                <a href="browse.html" class="nav-item"><i class="fa-solid fa-layer-group"></i> Browse Library</a>
+                <a href="favorites.html" class="nav-item active"><i class="fa-solid fa-heart"></i> Favorites</a>
+            </div>
+        </aside>
+
+        <div class="app-main-wrapper">
+            <header class="app-topbar">
+                <button id="mobileMenuToggle" class="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+            </header>
+            <main>
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 20px;">Favorite Packages</h2>
+                <div id="favoritesGrid" class="game-grid">
+                    <div class="empty-state-card">
+                        <i class="fa-solid fa-heart-crack"></i>
+                        <h3>No Favorites Saved</h3>
+                        <p>Star games from the library to pin them here.</p>
+                    </div>
+                </div>
+            </main>
+            <footer class="app-footer">
+                <p>&copy; 2026 Tiny Arcade Platform.</p>
+            </footer>
         </div>
-    </main>
+    </div>
     <script src="../js/storage.js"></script>
-    <script src="../js/games.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const favs = Storage.getFavorites();
-            const games = Storage.getGames().filter(g => favs.includes(g.id));
-            const grid = document.getElementById('favoritesGrid');
-            if (games.length > 0) {
-                grid.innerHTML = games.map(g => GamesModule.createCardHTML(g)).join('');
-            }
-        });
-    </script>
+    <script src="../js/navigation.js"></script>
 </body>
 </html>

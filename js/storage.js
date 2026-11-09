@@ -1,12 +1,12 @@
 const Storage = {
     getFavorites() {
         try {
-            return JSON.parse(localStorage.getItem('tiny_arcade_favorites')) || [];
+            return JSON.parse(localStorage.getItem('indiehaven_favorites')) || [];
         } catch {
             return [];
         }
     },
     saveFavorites(favorites) {
-        localStorage.setItem('tiny_arcade_favorites', JSON.stringify(favorites));
+        localStorage.setItem('indiehaven_favorites', JSON.stringify(favorites));
     }
 };

@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Details — IndieHaven</title>
+    <title>Game Details — Tiny Arcade</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-left">
-                <a href="../index.html" class="nav-logo">
-                    <i class="fa-solid fa-gamepad logo-icon"></i>
-                    <span>IndieHaven</span>
-                </a>
+    <div id="app-shell">
+        <aside id="appSidebar" class="app-sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-gamepad sidebar-logo-icon"></i>
+                <span class="sidebar-title">Tiny Arcade</span>
             </div>
-            <div class="nav-right">
-                <a href="../index.html" class="btn secondary-btn">Home</a>
-                <a href="browse.html" class="btn secondary-btn">Browse Games</a>
+            <div class="sidebar-nav">
+                <a href="../index.html" class="nav-item"><i class="fa-solid fa-compass"></i> Discover</a>
+                <a href="browse.html" class="nav-item active"><i class="fa-solid fa-layer-group"></i> Browse Library</a>
+                <a href="favorites.html" class="nav-item"><i class="fa-solid fa-heart"></i> Favorites</a>
             </div>
-        </div>
-    </nav>
+        </aside>
 
-    <main id="gameDetailMain" style="padding-top: 40px; max-width: 1000px;">
-        <!-- Dynamically loaded -->
-    </main>
+        <div class="app-main-wrapper">
+            <header class="app-topbar">
+                <button id="mobileMenuToggle" class="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+                <a href="browse.html" class="btn secondary-btn">&larr; Back to Library</a>
+            </header>
+
+            <main id="gameDetailMain">
+                <!-- Dynamically loaded -->
+            </main>
+
+            <footer class="app-footer">
+                <p>&copy; 2026 Tiny Arcade Platform.</p>
+            </footer>
+        </div>
+    </div>
 
     <script src="../js/storage.js"></script>
     <script src="../js/games.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/navigation.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -41,38 +53,68 @@
 
             if (!game) {
                 main.innerHTML = `
-                    <div class="empty-state-card">
-                        <i class="fa-solid fa-ghost" style="font-size: 3rem; color: var(--accent-main);"></i>
-                        <h3>Game Not Found</h3>
-                        <p>The game you are looking for does not exist in our library.</p>
-                        <a href="../index.html" class="btn primary-btn" style="margin-top: 10px;">Return Home</a>
+                    <div class="empty-state-card" style="margin-top: 40px;">
+                        <i class="fa-solid fa-ghost" style="font-size: 3rem; color: var(--accent-primary);"></i>
+                        <h3>Module Not Found</h3>
+                        <p>The requested game ID does not exist in <code>games.json</code>.</p>
+                        <a href="browse.html" class="btn primary-btn" style="margin-top: 10px;">Return to Library</a>
                     </div>
                 `;
                 return;
             }
 
-            // Correct path resolution for subdirectory GitHub Pages deployment
             const downloadPath = `../${game.download}`;
 
             main.innerHTML = `
-                <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 40px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-color); padding: 40px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
                     <div>
-                        <span style="background: var(--accent-main); color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">${game.genre}</span>
-                        <h1 style="font-size: 2.5rem; margin: 12px 0;">${game.title}</h1>
-                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Created by <strong>${game.author}</strong> &bull; Added: ${game.added}</p>
-                        <p style="line-height: 1.6; margin-bottom: 30px; color: var(--text-secondary);">${game.desc}</p>
+                        <span class="genre-tag">${game.genre}</span>
+                        <h1 style="font-size: 2.25rem; font-weight: 800; color: #fff; margin: 12px 0;">${game.title}</h1>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Created by <strong>${game.author}</strong> &bull; Registered: ${game.added}</p>
+                        <p style="line-height: 1.6; color: var(--text-secondary); margin-bottom: 30px;">${game.desc}</p>
                         
                         <div style="display: flex; gap: 12px;">
                             <a href="${downloadPath}" download class="btn primary-btn"><i class="fa-solid fa-download"></i> Download Archive (.7z)</a>
                         </div>
                     </div>
-                    <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center;">
-                        <i class="fa-solid fa-file-zipper" style="font-size: 4rem; color: var(--accent-main); margin-bottom: 16px;"></i>
-                        <h3 style="font-size: 1.1rem; margin-bottom: 6px;">Archive Package</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; word-break: break-all;">${game.download}</p>
+                    <div style="background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;">
+                        <i class="fa-solid fa-file-zipper" style="font-size: 4rem; color: var(--accent-primary); margin-bottom: 16px;"></i>
+                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px;">Repository Archive</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.8rem; word-break: break-all;">${game.download}</p>
                     </div>
                 </div>
+
+                <!-- Utterances Comments Section -->
+                <div class="comments-section-container">
+                    <div class="comments-header">
+                        <i class="fa-solid fa-comments"></i>
+                        <h2>Community Discussion</h2>
+                    </div>
+                    <p class="comments-desc">Discussions are powered by GitHub Issues. Sign in with GitHub to post comments or feedback for <strong>${game.title}</strong>.</p>
+                    
+                    <div id="utterances-container"></div>
+                </div>
             `;
+
+            // Dynamically inject Utterances script using game ID as issue-term
+            const utterancesScript = document.createElement('script');
+            utterancesScript.src = 'https://utteranc.es/client.js';
+            utterancesScript.async = true;
+            utterancesScript.crossOrigin = 'anonymous';
+            
+            // CONFIGURE YOUR GITHUB REPOSITORY HERE
+            utterancesScript.setAttribute('repo', 'YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME'); 
+            
+            // Maps each game to its own unique GitHub Issue using its unique ID
+            utterancesScript.setAttribute('issue-term', game.id);
+            
+            utterancesScript.setAttribute('label', 'game-comment');
+            utterancesScript.setAttribute('theme', 'github-dark');
+
+            const container = document.getElementById('utterances-container');
+            if (container) {
+                container.appendChild(utterancesScript);
+            }
         });
     </script>
 </body>

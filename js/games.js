@@ -1,16 +1,65 @@
 const GamesModule = {
+    // Dynamically resolves paths for root files regardless of subdirectory deployment
+    getAssetPath(path) {
+        const isSubdir = window.location.pathname.includes('/pages/');
+        return isSubdir ? `../${path}` : path;
+    },
+
     async fetchCatalog() {
+        const jsonUrl = this.getAssetPath('games.json');
+        console.log(`[GamesModule] Attempting to fetch games catalog from: ${jsonUrl}`);
+
         try {
-            const isPagesDir = window.location.pathname.includes('/pages/');
-            const jsonPath = isPagesDir ? '../games.json' : 'games.json';
-            const response = await fetch(jsonPath);
-            if (!response.ok) return [];
-            const data = await response.json();
-            return Array.isArray(data) ? data : [];
+            const response = await fetch(jsonUrl);
+            console.log(`[GamesModule] Fetch response status: ${response.status} ${response.statusText}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const rawText = await response.text();
+            
+            let data;
+            try {
+                data = JSON.parse(rawText);
+            } catch (parseError) {
+                console.error('[GamesModule] JSON Parsing Error:', parseError);
+                this.renderErrorState(`Failed to parse games catalog: Invalid JSON format.`);
+                return [];
+            }
+
+            if (!Array.isArray(data)) {
+                console.warn('[GamesModule] Warning: games.json root is not an array. Normalizing data.');
+                return [];
+            }
+
+            console.log(`[GamesModule] Successfully loaded ${data.length} game entry(ies).`, data);
+            return data;
+
         } catch (error) {
-            console.error('Failed to load games.json:', error);
+            console.error('[GamesModule] Failed to fetch games.json:', error);
+            this.renderErrorState(`Unable to load game catalog. Please verify that games.json exists in the repository root.`);
             return [];
         }
+    },
+
+    renderErrorState(message) {
+        const gridIds = ['homeRecentGrid', 'browseGrid'];
+        gridIds.forEach(id => {
+            const grid = document.getElementById(id);
+            if (grid) {
+                grid.innerHTML = `
+                    <div class="empty-state-card" style="border-color: rgba(231, 76, 60, 0.4);">
+                        <i class="fa-solid fa-triangle-exclamation" style="color: #e74c3c;"></i>
+                        <h3>Catalog Loading Error</h3>
+                        <p>${message}</p>
+                        <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn" style="margin-top: 10px;">
+                            <i class="fa-brands fa-discord"></i> Get Support on Discord
+                        </a>
+                    </div>
+                `;
+            }
+        });
     },
 
     async renderHomeGrids() {
@@ -24,7 +73,7 @@ const GamesModule = {
                 <div class="empty-state-card">
                     <i class="fa-solid fa-box-open"></i>
                     <h3>No Games in the Marketplace Yet</h3>
-                    <p>New indie releases added to your root-level <code>games.json</code> will appear here automatically. Want to see a game added?</p>
+                    <p>New indie releases added to your root-level <code>games.json</code> array will appear here automatically.</p>
                     <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn" style="margin-top: 8px;">
                         <i class="fa-brands fa-discord"></i> Request a Game on Discord
                     </a>
@@ -38,8 +87,8 @@ const GamesModule = {
     },
 
     createCardHTML(game) {
-        const isPagesDir = window.location.pathname.includes('/pages/');
-        const detailHref = isPagesDir ? `game.html?id=${game.id}` : `pages/game.html?id=${game.id}`;
+        const isSubdir = window.location.pathname.includes('/pages/');
+        const detailHref = isSubdir ? `game.html?id=${game.id}` : `pages/game.html?id=${game.id}`;
         
         return `
             <div class="game-card" onclick="window.location.href='${detailHref}'">

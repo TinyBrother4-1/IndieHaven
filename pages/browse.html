@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Games — IndieHaven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-logo">
+                    <i class="fa-solid fa-gamepad logo-icon"></i>
+                    <span>IndieHaven</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="browse.html" class="nav-link active">Browse Games</a>
+                    <a href="collections.html" class="nav-link">Collections</a>
+                    <a href="request.html" class="nav-link">Request a Game</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main style="padding-top: 40px;">
+        <h2>Browse Game Catalog</h2>
+        <div id="browseGrid" class="game-grid" style="margin-top: 20px;">
+            <!-- Rendered dynamically -->
+        </div>
+    </main>
+    <script src="../js/storage.js"></script>
+    <script src="../js/games.js"></script>
+    <script src="../js/search.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const games = await GamesModule.fetchCatalog();
+            const grid = document.getElementById('browseGrid');
+            if (games.length > 0) {
+                grid.innerHTML = games.map(g => GamesModule.createCardHTML(g)).join('');
+            } else {
+                grid.innerHTML = `
+                    <div class="empty-state-card">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>No games in the library</h3>
+                        <p>Request games through our Discord community to see them added here.</p>
+                        <a href="request.html" class="btn primary-btn discord-btn"><i class="fa-brands fa-discord"></i> Request a Game</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

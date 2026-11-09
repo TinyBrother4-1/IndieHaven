@@ -1,0 +1,28 @@
+@media (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links, .nav-search-wrapper {
+        display: none;
+    }
+    .mobile-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--text-main);
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+    .welcome-hero {
+        padding: 30px 20px;
+    }
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}

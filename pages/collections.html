@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections — IndieHaven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+    <main style="padding-top: 40px;">
+        <h2>Curated Collections</h2>
+        <div id="collectionsContainer" style="margin-top: 20px;"></div>
+    </main>
+    <script src="../js/storage.js"></script>
+    <script src="../js/collections.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => CollectionsModule.render());
+    </script>
+</body>
+</html>

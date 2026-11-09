@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites — IndieHaven</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+    <main style="padding-top: 40px;">
+        <h2>Your Favorite Games</h2>
+        <div id="favoritesGrid" class="game-grid" style="margin-top: 20px;">
+            <p style="color: var(--text-secondary);">No favorite games saved yet.</p>
+        </div>
+    </main>
+    <script src="../js/storage.js"></script>
+    <script src="../js/games.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const favs = Storage.getFavorites();
+            const games = Storage.getGames().filter(g => favs.includes(g.id));
+            const grid = document.getElementById('favoritesGrid');
+            if (games.length > 0) {
+                grid.innerHTML = games.map(g => GamesModule.createCardHTML(g)).join('');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,53 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse Library — Tiny Arcade</title>
+    <title>Browse Games — IndieHaven</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div id="app-shell">
-        <aside id="appSidebar" class="app-sidebar">
-            <div class="sidebar-header">
-                <i class="fa-solid fa-gamepad sidebar-logo-icon"></i>
-                <span class="sidebar-title">Tiny Arcade</span>
-            </div>
-            <div class="sidebar-nav">
-                <a href="../index.html" class="nav-item"><i class="fa-solid fa-compass"></i> Discover</a>
-                <a href="browse.html" class="nav-item active"><i class="fa-solid fa-layer-group"></i> Browse Library</a>
-                <a href="favorites.html" class="nav-item"><i class="fa-solid fa-heart"></i> Favorites</a>
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="nav-item"><i class="fa-brands fa-discord"></i> Request a Game</a>
-            </div>
-            <div class="sidebar-footer">
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn" style="width: 100%;"><i class="fa-brands fa-discord"></i> Join Discord</a>
-            </div>
-        </aside>
-
-        <div class="app-main-wrapper">
-            <header class="app-topbar">
-                <button id="mobileMenuToggle" class="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
-                <div class="topbar-search">
-                    <i class="fa-solid fa-search"></i>
-                    <input type="text" id="globalSearchInput" placeholder="Search game catalog...">
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../index.html" class="nav-logo">
+                    <i class="fa-solid fa-gamepad logo-icon"></i>
+                    <span>IndieHaven</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link">Discover</a>
+                    <a href="browse.html" class="nav-link active">Browse Games</a>
+                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="nav-link">Request a Game</a>
                 </div>
-            </header>
-
-            <main>
-                <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 20px;">Complete Game Catalog</h2>
-                <div id="browseGrid" class="game-grid"></div>
-            </main>
-
-            <footer class="app-footer">
-                <p>&copy; 2026 Tiny Arcade Platform.</p>
-            </footer>
+            </div>
+            <div class="nav-right">
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn">
+                    <i class="fa-brands fa-discord"></i> Request a Game
+                </a>
+            </div>
         </div>
-    </div>
+    </nav>
+    <main>
+        <h2 style="font-size: 1.75rem; font-weight: 700; color: #fff; margin-bottom: 24px;">Complete Game Catalog</h2>
+        <div id="browseGrid" class="game-grid"></div>
+    </main>
+
+    <footer id="siteFooter" style="margin-top: 60px;">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3><i class="fa-solid fa-gamepad"></i> IndieHaven</h3>
+                <p>An independent digital playground for creators, developers, and players.</p>
+            </div>
+            <div class="footer-links-group">
+                <h4>Marketplace</h4>
+                <a href="browse.html">Browse Games</a>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Request a Game</a>
+            </div>
+            <div class="footer-links-group">
+                <h4>Community</h4>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Discord Server</a>
+                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer">YouTube Channel (@TinyBrother4)</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IndieHaven Marketplace.</p>
+        </div>
+    </footer>
 
     <script src="../js/storage.js"></script>
     <script src="../js/games.js"></script>
     <script src="../js/search.js"></script>
-    <script src="../js/navigation.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const games = await GamesModule.fetchCatalog();
@@ -60,8 +69,11 @@
                 grid.innerHTML = `
                     <div class="empty-state-card">
                         <i class="fa-solid fa-box-open"></i>
-                        <h3>Library Sector Empty</h3>
-                        <p>No games registered in <code>games.json</code>.</p>
+                        <h3>Catalog Sector Empty</h3>
+                        <p>No games are registered in <code>games.json</code> yet.</p>
+                        <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn" style="margin-top: 10px;">
+                            <i class="fa-brands fa-discord"></i> Request a Game on Discord
+                        </a>
                     </div>
                 `;
             }

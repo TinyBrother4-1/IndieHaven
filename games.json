@@ -1,3 +1,11 @@
-{
-  "games": []
-}
+[
+  {
+    "id": "softbodyengine",
+    "title": "Soft Body Engine",
+    "genre": "Sandbox",
+    "desc": "Game description.",
+    "author": "TinyBrother4",
+    "added": "2026-10-25",
+    "download": "Games/Soft.7z"
+  }
+]

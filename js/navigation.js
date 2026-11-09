@@ -1,16 +1,11 @@
 const NavigationModule = {
     init() {
         const toggle = document.getElementById('mobileMenuToggle');
-        const drawer = document.getElementById('mobileDrawer');
-        if (toggle && drawer) {
+        const sidebar = document.getElementById('appSidebar');
+        if (toggle && sidebar) {
             toggle.addEventListener('click', () => {
-                drawer.classList.toggle('hidden');
+                sidebar.classList.toggle('active');
             });
-        }
-        
-        const badge = document.getElementById('favBadge');
-        if (badge) {
-            badge.innerText = Storage.getFavorites().length;
         }
     }
 };

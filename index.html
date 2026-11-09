@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IndieHaven — Independent Game Discovery & Publishing Platform</title>
+    <title>IndieHaven — Independent Game Discovery Platform</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -25,22 +25,24 @@
                 <div class="nav-links">
                     <a href="index.html" class="nav-link active">Home</a>
                     <a href="pages/browse.html" class="nav-link">Browse Games</a>
-                    <a href="pages/collections.html" class="nav-link">Collections</a>
-                    <a href="pages/upload.html" class="nav-link">Upload Game</a>
+                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="nav-link">Request a Game</a>
                 </div>
             </div>
             <div class="nav-right">
                 <div class="nav-search-wrapper">
                     <i class="fa-solid fa-search search-icon"></i>
-                    <input type="text" id="globalSearchInput" placeholder="Search games, devs, tags..." autocomplete="off">
+                    <input type="text" id="globalSearchInput" placeholder="Search games, authors, genres..." autocomplete="off">
                     <div id="searchSuggestions" class="search-suggestions hidden"></div>
                 </div>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="nav-icon-btn discord-nav-icon" title="Join Discord">
+                    <i class="fa-brands fa-discord"></i>
+                </a>
+                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer" class="nav-icon-btn youtube-nav-icon" title="YouTube Channel">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
                 <a href="pages/favorites.html" class="nav-icon-btn" title="Favorites">
                     <i class="fa-solid fa-heart"></i>
                     <span id="favBadge" class="badge">0</span>
-                </a>
-                <a href="pages/profile.html" class="btn secondary-btn user-btn">
-                    <i class="fa-solid fa-user"></i> <span id="authBtnLabel">Dashboard</span>
                 </a>
                 <button id="mobileMenuToggle" class="mobile-toggle" aria-label="Toggle Navigation">
                     <i class="fa-solid fa-bars"></i>
@@ -50,10 +52,10 @@
         <div id="mobileDrawer" class="mobile-drawer hidden">
             <a href="index.html" class="mobile-link">Home</a>
             <a href="pages/browse.html" class="mobile-link">Browse Games</a>
-            <a href="pages/collections.html" class="mobile-link">Collections</a>
-            <a href="pages/upload.html" class="mobile-link">Upload Game</a>
+            <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="mobile-link">Request a Game</a>
             <a href="pages/favorites.html" class="mobile-link">Favorites</a>
-            <a href="pages/settings.html" class="mobile-link">Settings</a>
+            <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="mobile-link">Join Discord Server</a>
+            <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer" class="mobile-link">YouTube Channel (@TinyBrother4)</a>
         </div>
     </nav>
 
@@ -62,10 +64,10 @@
             <div class="hero-content">
                 <span class="tag-badge"><i class="fa-solid fa-rocket"></i> Open Indie Platform</span>
                 <h1>Discover Independent Artistry.</h1>
-                <p>Every great game starts somewhere. Explore unique creations built by independent developers worldwide, or publish your own project in minutes.</p>
+                <p>Explore unique creations added via GitHub, or request missing games directly through our community Discord server.</p>
                 <div class="hero-actions">
-                    <a href="pages/browse.html" class="btn primary-btn"><i class="fa-solid compass"></i> Browse Games</a>
-                    <a href="pages/upload.html" class="btn secondary-btn"><i class="fa-solid fa-upload"></i> Publish Your Game</a>
+                    <a href="pages/browse.html" class="btn primary-btn"><i class="fa-solid fa-compass"></i> Browse Games</a>
+                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn secondary-btn discord-btn"><i class="fa-brands fa-discord"></i> Request a Game</a>
                 </div>
             </div>
         </section>
@@ -74,16 +76,16 @@
             <div class="section-header">
                 <div>
                     <h2>Recently Published</h2>
-                    <p>Fresh releases from the community</p>
+                    <p>Fresh releases from the library catalog</p>
                 </div>
                 <a href="pages/browse.html" class="view-all-btn">View All <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div id="homeRecentGrid" class="game-grid">
                 <div class="empty-state-card">
                     <i class="fa-solid fa-gamepad"></i>
-                    <h3>No games published yet</h3>
-                    <p>Be the first developer to share your creation with the world.</p>
-                    <a href="pages/upload.html" class="btn primary-btn">Upload Game</a>
+                    <h3>No games in the library yet</h3>
+                    <p>Add entries to your root-level <code>games.json</code> file to display games here automatically.</p>
+                    <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn primary-btn discord-btn"><i class="fa-brands fa-discord"></i> Request a Game on Discord</a>
                 </div>
             </div>
         </section>
@@ -114,12 +116,12 @@
             <div class="footer-links-group">
                 <h4>Platform</h4>
                 <a href="pages/browse.html">Browse Games</a>
-                <a href="pages/collections.html">Collections</a>
-                <a href="pages/upload.html">Publish a Game</a>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Request a Game</a>
             </div>
             <div class="footer-links-group">
                 <h4>Community</h4>
-                <a href="pages/settings.html">Preferences</a>
+                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Discord Server</a>
+                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer">YouTube Channel (@TinyBrother4)</a>
             </div>
         </div>
         <div class="footer-bottom">

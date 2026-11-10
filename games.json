@@ -21,28 +21,29 @@
     "comments": true
   },
   {
-    "id": "atomsimulation",
-    "title": "Atom Simulation",
-    "genre": "Sandbox",
-    "desc": [
-      "An experimental GPU-powered atom simulation where thousands or even millions of atoms move, interact, and form different structures!",
-      "Watch atoms constantly move around, interact with one another, and create different arrangements through simulated bonding behavior. See how simple atomic interactions can produce increasingly complex structures.",
-      "Current Features",
-      "GPU-accelerated atom simulation.",
-      "Supports up to 4 million atoms.",
-      "Continuously moving and interacting atoms.",
-      "Dynamic atomic bonding.",
-      "Different molecular and atomic arrangements.",
-      "Multiple element types with individual colors.",
-      "Bonding preferences and restrictions.",
-      "Adjustable simulation settings.",
-      "Development Status",
-      "This project is still actively being developed. More elements, advanced chemistry, realistic bonding, temperature, material states, and molecular recognition are planned for future updates.",
-      "Note: This is an experimental chemistry simulation, not a fully scientifically accurate molecular dynamics engine. Some interactions and bonding behaviors are simplified.",
-      "(note this is made with AI so bugs can happen)"],
-    "author": "TinyBrother4",
-    "added": "2026-11-09",
-    "download": "https://drive.google.com/file/d/1JbkDRjO9TCxFjmewvSCTguuLVlBFeUFr/view?usp=drive_link",
-    "comments": true
+      "id": "atomsimulation",
+      "title": "Atom Simulation",
+      "genre": "Sandbox",
+      "desc": [
+        "An experimental GPU-powered atom simulation where thousands or even millions of atoms move, interact, and form different structures!",
+        "Watch atoms constantly move around, interact with one another, and create different arrangements through simulated bonding behavior. See how simple atomic interactions can produce increasingly complex structures.",
+        "Current Features",
+        "GPU-accelerated atom simulation.",
+        "Supports up to 4 million atoms.",
+        "Continuously moving and interacting atoms.",
+        "Dynamic atomic bonding.",
+        "Different molecular and atomic arrangements.",
+        "Multiple element types with individual colors.",
+        "Bonding preferences and restrictions.",
+        "Adjustable simulation settings.",
+        "Development Status",
+        "This project is still actively being developed. More elements, advanced chemistry, realistic bonding, temperature, material states, and molecular recognition are planned for future updates.",
+        "Note: This is an experimental chemistry simulation, not a fully scientifically accurate molecular dynamics engine. Some interactions and bonding behaviors are simplified.",
+        "(note this is made with AI so bugs can happen)"
+      ],
+      "author": "TinyBrother4",
+      "added": "2026-11-09",
+      "download": "https://drive.google.com/file/d/1JbkDRjO9TCxFjmewvSCTguuLVlBFeUFr/view?usp=drive_link",
+      "comments": true
   }
 ]

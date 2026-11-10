@@ -79,7 +79,10 @@
                 return;
             }
 
-            const downloadPath = GamesModule.getAssetPath(game.download);
+            // Checks if the download path is an external link (like Google Drive) or a local repository path
+            const rawDownload = game.download || '';
+            const downloadPath = rawDownload.startsWith('http') ? rawDownload : GamesModule.getAssetPath(rawDownload);
+            const isExternal = rawDownload.startsWith('http');
             const fullDescHTML = GamesModule.formatDescription(game.desc);
 
             main.innerHTML = `
@@ -94,17 +97,19 @@
                         </div>
                         
                         <div style="display: flex; gap: 12px;">
-                            <a href="${downloadPath}" download class="btn primary-btn" style="padding: 12px 24px; font-size: 1rem;"><i class="fa-solid fa-download"></i> Download Archive (.7z)</a>
+                            <a href="${downloadPath}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : 'download'} class="btn primary-btn" style="padding: 12px 24px; font-size: 1rem;">
+                                <i class="fa-solid fa-download"></i> Download Game Build
+                            </a>
                         </div>
                     </div>
                     <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;">
-                        <i class="fa-solid fa-file-zipper" style="font-size: 4.5rem; color: var(--accent-main); margin-bottom: 16px;"></i>
-                        <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Repository Package</h3>
+                        <i class="fa-solid ${isExternal ? 'fa-brands fa-google-drive' : 'fa-file-zipper'}" style="font-size: 4.5rem; color: var(--accent-main); margin-bottom: 16px;"></i>
+                        <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">${isExternal ? 'External Host' : 'Repository Package'}</h3>
                         <p style="color: var(--text-secondary); font-size: 0.8rem; word-break: break-all;">${game.download}</p>
                     </div>
                 </div>
 
-                <!-- Conditional Comments GUI -->
+                <!-- Conditional Community Comments GUI Container -->
                 <div id="commentsWrapper"></div>
             `;
 
@@ -131,7 +136,7 @@
 
                         <div id="comments-error" class="comments-error-state hidden">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span>Unable to load community comments. Please check your GitHub repository connection.</span>
+                            <span>Unable to load community comments. Please check your GitHub repository connection or ad blocker settings.</span>
                         </div>
                     </div>
                 `;

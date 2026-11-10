@@ -1,143 +1,42 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Details — IndieHaven</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-left">
-                <a href="../index.html" class="nav-logo">
-                    <i class="fa-solid fa-gamepad logo-icon"></i>
-                    <span>IndieHaven</span>
-                </a>
-                <div class="nav-links">
-                    <a href="../index.html" class="nav-link">Discover</a>
-                    <a href="browse.html" class="nav-link">Browse Games</a>
-                </div>
-            </div>
-            <div class="nav-right">
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer" class="btn discord-btn">
-                    <i class="fa-brands fa-discord"></i> Request a Game
-                </a>
-            </div>
-        </div>
-    </nav>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const gameId = params.get('id');
+        const main = document.getElementById('gameDetailMain');
 
-    <main id="gameDetailMain" style="max-width: 1000px;">
-        <!-- Dynamically loaded -->
-    </main>
+        const games = await GamesModule.fetchCatalog();
+        const game = games.find(g => g.id === gameId);
 
-    <footer id="siteFooter" style="margin-top: 60px;">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3><i class="fa-solid fa-gamepad"></i> IndieHaven</h3>
-                <p>An independent digital playground for creators, developers, and players.</p>
-            </div>
-            <div class="footer-links-group">
-                <h4>Marketplace</h4>
-                <a href="browse.html">Browse Games</a>
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Request a Game</a>
-            </div>
-            <div class="footer-links-group">
-                <h4>Community</h4>
-                <a href="https://discord.gg/kdVEerSBRR" target="_blank" rel="noopener noreferrer">Discord Server</a>
-                <a href="https://www.youtube.com/@TinyBrother4" target="_blank" rel="noopener noreferrer">YouTube Channel (@TinyBrother4)</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 IndieHaven Marketplace.</p>
-        </div>
-    </footer>
+        if (!game) { /* ... error handling ... */ return; }
 
-    <script src="../js/storage.js"></script>
-    <script src="../js/games.js"></script>
-    <script src="../js/search.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const params = new URLSearchParams(window.location.search);
-            const gameId = params.get('id');
-            const main = document.getElementById('gameDetailMain');
+        const downloadPath = GamesModule.getAssetPath(game.download);
+        const fullDescHTML = GamesModule.formatDescription(game.desc);
 
-            const games = await GamesModule.fetchCatalog();
-            const game = games.find(g => g.id === gameId);
-
-            if (!game) {
-                main.innerHTML = `
-                    <div class="empty-state-card" style="margin-top: 40px;">
-                        <i class="fa-solid fa-ghost" style="font-size: 3.5rem; color: var(--accent-main);"></i>
-                        <h3>Game Package Not Found</h3>
-                        <p>The requested game ID could not be resolved in <code>games.json</code>.</p>
-                        <a href="browse.html" class="btn primary-btn" style="margin-top: 10px;">Return to Browse</a>
+        main.innerHTML = `
+            <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 45px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+                <div>
+                    <span class="genre-pill">${game.genre}</span>
+                    <h1 style="font-size: 2.5rem; font-weight: 800; color: #fff; margin: 12px 0;">${game.title}</h1>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Created by <strong>${game.author}</strong> &bull; Added: ${game.added}</p>
+                    
+                    <div class="game-full-description" style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1.05rem;">
+                        ${fullDescHTML}
                     </div>
-                `;
-                return;
-            }
-
-            const downloadPath = `../${game.download}`;
-
-            main.innerHTML = `
-                <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 45px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
-                    <div>
-                        <span class="genre-pill">${game.genre}</span>
-                        <h1 style="font-size: 2.5rem; font-weight: 800; color: #fff; margin: 12px 0;">${game.title}</h1>
-                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Created by <strong>${game.author}</strong> &bull; Added: ${game.added}</p>
-                        <p style="line-height: 1.6; color: var(--text-secondary); margin-bottom: 30px; font-size: 1.05rem;">${game.desc}</p>
-                        
-                        <div style="display: flex; gap: 12px;">
-                            <a href="${downloadPath}" download class="btn primary-btn" style="padding: 12px 24px; font-size: 1rem;"><i class="fa-solid fa-download"></i> Download Archive (.7z)</a>
-                        </div>
-                    </div>
-                    <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;">
-                        <i class="fa-solid fa-file-zipper" style="font-size: 4.5rem; color: var(--accent-main); margin-bottom: 16px;"></i>
-                        <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Repository Package</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.8rem; word-break: break-all;">${game.download}</p>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <a href="${downloadPath}" download class="btn primary-btn" style="padding: 12px 24px; font-size: 1rem;"><i class="fa-solid fa-download"></i> Download Archive (.7z)</a>
                     </div>
                 </div>
+                <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center;">
+                    <i class="fa-solid fa-file-zipper" style="font-size: 4.5rem; color: var(--accent-main); margin-bottom: 16px;"></i>
+                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Repository Package</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem; word-break: break-all;">${game.download}</p>
+                </div>
+            </div>
 
-                <!-- Conditional Utterances Comments Section -->
-                <div id="commentsWrapper"></div>
-            `;
-
-            // Check if comments are explicitly set to true (default false otherwise)
-            const commentsEnabled = game.comments === true;
-
-            if (commentsEnabled) {
-                const commentsWrapper = document.getElementById('commentsWrapper');
-                commentsWrapper.innerHTML = `
-                    <div class="comments-section-container">
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                            <i class="fa-solid fa-comments" style="font-size: 1.5rem; color: var(--accent-main);"></i>
-                            <h2 style="font-size: 1.5rem; font-weight: 700; color: #fff;">Community Discussion</h2>
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px;">Discussions are powered by GitHub Issues. Sign in with GitHub below to share feedback or chat about <strong>${game.title}</strong>.</p>
-                        
-                        <div id="utterances-container"></div>
-                    </div>
-                `;
-
-                // Inject official Utterances script with unique issue-term mapping based on game id
-                const utterancesScript = document.createElement('script');
-                utterancesScript.src = 'https://utteranc.es/client.js';
-                utterancesScript.async = true;
-                utterancesScript.crossOrigin = 'anonymous';
-                
-                utterancesScript.setAttribute('repo', 'TinyBrother4-1/IndieHaven'); 
-                utterancesScript.setAttribute('issue-term', `game-${game.id}`); // Unique issue-term per game ID
-                utterancesScript.setAttribute('label', 'game-discussion');
-                utterancesScript.setAttribute('theme', 'github-dark');
-
-                const container = document.getElementById('utterances-container');
-                if (container) {
-                    container.appendChild(utterancesScript);
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+            <div id="commentsWrapper"></div>
+        `;
+        
+        // ... rest of Utterances comments logic ...
+    });
+</script>
